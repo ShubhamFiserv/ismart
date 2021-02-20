@@ -1,3 +1,6 @@
+/**
+ * Model class for filtering attributes for payments
+ */
 export class FilterModel {
     frequency:string;
     month:string ;

@@ -36,7 +36,7 @@ export class SearchPaymentsComponent implements OnInit {
   }
 
   onSearchHandler(){
-    if(this.filterModel.frequency === 'Monthly'){
+    if(this.filterModel.frequency === 'Monthly' && this.filterModel.month ==='NA'){
         this.filterModel.month = this.monthsList[0].value;
     }
     this.paymentService.getFiltredPayments(this.filterModel);
