@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+#payment-list {
+    height: 400px;
+    font-size: 9px;
+}
+
+h5{
+    font-size: 12px;
+}
+
+h1 {
+    font-size: 15px;
+}
+
+#payment-anlysis {
+    height: 400px;
+}
+
+#payment-filter, #payments {
+    font-size: 11px;
+    font-weight: bold;
+}
+
+#payments {
+    height: 530px;
+    padding-top: -2px;
+}

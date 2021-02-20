@@ -1,0 +1,41 @@
+<div class="card text-center" id="payment-filter">
+    <h5 class="card-header bg-dark text-white text-left">View Transactions</h5>
+    <div class="card-body">
+        <form>
+            <div class="form-row">
+                <div class="form-group col-4 row">
+                    <label for="frequency" class="col-5 col-form-label">Frequency</label>
+                    <div class="col-7">
+                      <select id="frequency" name="frequency" class="form-control custom-select-sm" [(ngModel)]="filterModel.frequency" 
+                      (change)="onSearchHandler()">
+                          <option>Current</option>
+                          <option>Monthly</option>
+                        </select>
+                    </div>
+                  </div>
+                  <div class="form-group col-4 row">
+                    <label for="month"  class="col-4 col-form-label">Month</label>
+                    <div class="col-8">
+                      <input type="text" name="month" readonly class="form-control form-control-sm" *ngIf="filterModel.frequency ==='Current'" value="NA"/>
+                      <select id="month" name="month" class="form-control custom-select-sm" *ngIf="filterModel.frequency !=='Current'"
+                      required
+                      [(ngModel)]="filterModel.month" #month="ngModel" (change)="onSearchHandler()">
+                      <option *ngFor="let month of monthsList; index as i" [value]="month.value">{{month.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group col-4 row">
+                    <label for="category"  class="col-5 col-form-label">Category</label>
+                    <div class="col-7">
+                      <select id="category" name="category" class="form-control custom-select-sm"
+                      required
+                      [(ngModel)]="filterModel.category" #category="ngModel" (change)="onSearchHandler()">
+                      <option *ngFor="let category of categories; index as i" [value]="category">{{category}}</option>
+                  </select>
+                    </div>
+                  </div>
+            </div>
+          </form>
+    </div>
+</div>    
+

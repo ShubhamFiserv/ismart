@@ -1,0 +1,25 @@
+<div id="payment-list" class="card">
+    <h5 class="card-header bg-dark text-white text-left">Expenditures</h5>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead class="bg-info">
+              <tr>
+                <th style="width: 20%;">Trans Id</th>
+                <th style="width: 30%;">Description</th>
+                <th >Category</th>
+                <th >Amount</th>
+                <th>D/C</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let expense of expenditures;" >
+                <th style="width: 20%;">{{expense._id}}</th>
+                <td style="width: 30%;">{{expense.description}}</td>
+                <td >{{expense.category}}</td>
+                <td >{{expense.amount}}</td>
+                <td >{{expense.paymentType === 'Make'? "D" : "C"}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+</div>        

@@ -1,0 +1,17 @@
+<div class="card" id="payment-anlysis" >
+    <h5 class="card-header bg-dark text-white text-left">Spend Analysis</h5>
+    <div class="card-body">
+        <div class="chartjs-container">
+            <canvas 
+                baseChart height="350vh"
+                [data]="pieChartData" 
+                [labels]="pieChartLabels" 
+                [chartType]="pieChartType"
+                [options]="pieChartOptions" 
+                [plugins]="pieChartPlugins" 
+                [colors]="pieChartColors" 
+                [legend]="pieChartLegend" >
+            </canvas>
+        </div>
+    </div>
+</div>        

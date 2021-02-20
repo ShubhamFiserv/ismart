@@ -1,0 +1,80 @@
+<div class="card" id="payments">
+    <h5 class="card-header bg-dark text-white text-left">Make / Recieve Payements</h5>
+    <div class="card-body">
+        <form #myform = "ngForm" (ngSubmit) = "onSubmit(myform)" >
+            <div class="form-group row">
+                <label for="amount" class="col-4 col-xs-5 col-form-label">Amount</label>
+                <div class="col-8 col-xs-7">
+                  <input type ="number" class="form-control form-control-sm" id="amount" name="amount" [(ngModel)]="payment.amount" required nobalance  #amount="ngModel" >
+                  <div *ngIf="amount.invalid && (amount.dirty || amount.touched)"
+                          class="small alert-danger text-left">
+                        <span *ngIf="amount.errors.required">
+                          Amount is required.
+                        </span>
+                        <span *ngIf="amount.errors.number">
+                          Name must be a number.
+                        </span>
+                        <span *ngIf="amount.errors.nobalance">
+                          Account Balance is low.
+                        </span>
+                  </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="payementDate" class="col-4 col-xs-5 col-form-label">Date</label>
+                <div class="col-8 col-xs-7">
+                  <input type="date" class="form-control form-control-sm" id="payementDate" name="paymentDate" [ngModel] ="payment.paymentDate | date:'yyyy-MM-dd'" (ngModelChange)="payment.paymentDate = $event" required  #paymentDate="ngModel">
+                  <div *ngIf="paymentDate.invalid && (paymentDate.dirty || paymentDate.touched)"
+                        class="small alert-danger text-left">
+                      <span *ngIf="paymentDate.errors.required">
+                        Payment Date is required.
+                      </span>
+                </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="paymentType" class="col-4 col-xs-5 col-form-label">Payment Type</label>
+                <div class="col-8 col-xs-7">
+                <select id="paymentType" name="paymentType" class="form-control form-control-sm custom-select"
+                      required
+                      [(ngModel)]="payment.paymentType" #paymentType="ngModel">
+                      <option *ngFor="let payemntType of ['Make','Recieve']" [value]="payemntType">{{payemntType}}</option>
+                </select>
+              <div *ngIf="paymentType.invalid && (paymentType.dirty || paymentType.touched)"
+                        class="small alert-danger text-left">
+                      <span *ngIf="paymentType.errors.required">
+                        Payment Type is required.
+                      </span>
+              </div>  
+            </div>
+            </div>
+            <div class="form-group row">
+                <label for="category" class="col-4 col-xs-6 col-form-label">Category</label>
+                <div class="col-8 col-xs-6">
+                  <select id="category" name="category" class="form-control form-control-sm custom-select"
+                      required
+                      [(ngModel)]="payment.category" #category="ngModel">
+                      <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+                  </select>
+                  <div *ngIf="category.invalid && (category.dirty || category.touched)"
+                        class="small alert-danger text-left">
+                      <span *ngIf="category.errors.required">
+                        Category is required.
+                      </span>
+              </div>  
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="description" class="col-4 col-xs-5 col-form-label">Description</label>
+                <div class="col-8 col-xs-7">
+                  <input type="text" class="form-control form-control-sm" id="description" name="description" [(ngModel)]="payment.description">
+                </div>
+            </div>
+            <div class="text-center">
+              <button type="submit" [disabled]="!myform.valid" class="btn btn-primary">Submit</button>
+            </div>
+            
+        </form>
+    </div>
+  </div>
+
