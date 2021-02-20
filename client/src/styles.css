@@ -16,12 +16,20 @@ h1 {
     height: 400px;
 }
 
-#payment-filter, #payments {
-    font-size: 11px;
-    font-weight: bold;
-    height: 150px;
+#payment-filter {
+    height: 300px;
 }
 
 #payments {
-    height: 550px;
+    font-size: 11px;
+    font-weight: bold;
 }
+
+@media (min-width: 576px) {
+    #payment-filter {
+        height: 150px;
+    }
+    #payments {
+        height: 550px;
+    }
+ }
