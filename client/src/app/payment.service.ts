@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { env } from 'process';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { FilterModel } from './models/filter.model';
 
 @Injectable({
@@ -10,7 +12,11 @@ export class PaymentService {
 
   private REST_API_SERVER = "http://localhost:5000";
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+    if(environment.production === true){
+      this.REST_API_SERVER = "";
+    }
+   }
 
   private paymentsObj$: BehaviorSubject<Object> = new BehaviorSubject(null);
   private paymentsObjForAnalysis$: BehaviorSubject<Object> = new BehaviorSubject(null);
