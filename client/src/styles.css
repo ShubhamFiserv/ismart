@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+    box-sizing: border-box;
+}
 #payment-list {
     height: 400px;
     font-size: 9px;
