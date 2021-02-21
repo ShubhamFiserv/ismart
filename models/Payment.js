@@ -1,3 +1,6 @@
+/**
+ * Payment Model mongo db schema
+ */
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 

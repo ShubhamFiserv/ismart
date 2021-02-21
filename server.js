@@ -6,23 +6,28 @@ const cors = require('cors');
 const keys = require('./database/db');
 
 var corsOptions = {
+    //for local deployment we need to provie API for backend server
     origin: 'http://localhost:4200',
     optionsSuccessStatus: 200 // For legacy browser support
 }
 
+//Model class for Payment
 require('./models/Payment');
 
-
+// Express app
 const app = express();
 
+//Middleware for express , one is for converting the request to json and other for cors fix on local deployment
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
 
-
+//For connecting to mongodb database, we are using the same mongoURI for local and production as well
 mongoose.connect(keys.mongoURI,{useNewUrlParser: true});
 
+//including payment Routes here with express app
 require('./routes/paymentRoutes')(app);
 
+//Code for serving client build file in production
 if(process.env.NODE_ENV === 'production'){
     // Express will serve up production assets
     //like our main.js , or main.css
@@ -39,4 +44,5 @@ if(process.env.NODE_ENV === 'production'){
 
 const PORT = process.env.PORT || 5000;
 
+//code to run the node app on specific port
 app.listen(PORT);

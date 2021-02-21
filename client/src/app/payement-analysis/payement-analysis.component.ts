@@ -14,14 +14,14 @@ export class PayementAnalysisComponent implements OnInit {
   constructor(private paymentService: PaymentService) { }
 
   ngOnInit(): void {
+    this.paymentService.getFilteredPaymentsByFrequency('half_year');
     this.paymentService.getPaymentsObjForAnalysis().subscribe((payments:any[])=>{
       if(payments && payments.length >0 ){
         this.payments = payments;
-        this.payments = this.groupBy(payments,'category');
+        this.payments = this.mapToObjectForPieCharts(payments,'category');
         this.pieChartLabels = Object.keys(this.payments);
         this.pieChartData = Object.values(this.payments);
-      }
-      
+      }  
     });
   }
 
@@ -45,9 +45,14 @@ export class PayementAnalysisComponent implements OnInit {
       }
     },
   };
-
-  private groupBy(objectArray, property) {
-    return objectArray.reduce(function (acc, obj) {
+  
+  /**
+   * Method is to convert payments array into Object required for showing data on pie chart
+   * @param paymentsArray - array of payments for transaction for previous 6 month from the time data is fetched.
+   * @param property - property for gruoping in our case we are showing spend anaysis by category so value here is 'category'
+   */
+  private mapToObjectForPieCharts(paymentsArray, property) {
+    return paymentsArray.reduce(function (acc, obj) {
       let key = obj[property]
       if (!acc[key] ) {
         acc[key] = 1;

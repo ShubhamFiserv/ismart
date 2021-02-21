@@ -12,7 +12,7 @@ export class PayementListComponent implements OnInit {
   constructor(private paymentService: PaymentService) { }
 
   ngOnInit(): void {
-    this.paymentService.getFilteredPaymentsByFrequency('half_year');
+    //subscribe to getPaymentsObj Subscription For showing the data specific to the filter selected of view transactions box
     this.paymentService.getPaymentsObj().subscribe((payments:any[])=>{
       this.expenditures = payments;
     });

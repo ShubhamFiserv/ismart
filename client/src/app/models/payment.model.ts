@@ -1,3 +1,6 @@
+/**
+ * Payment Interface & Class
+ */
 interface IPayment { 
     amount:number,
     paymentDate: Date,

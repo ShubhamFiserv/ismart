@@ -18,13 +18,19 @@ export class SearchPaymentsComponent implements OnInit {
   constructor(private paymentService:PaymentService) { }
   
   ngOnInit(): void {
+    //for populating previous 6 months list in case of frequency selected is Monthly
     this.getLastSixMonthsMap();
+    //getCategories api call to populate categories data
     this.paymentService.getCategories().subscribe((categories:any[])=>{
       this.categories = categories;
     });
+    //Intial api call for triggering payment call by defualt filterModel
     this.onSearchHandler();  
   }
-
+  
+  /**
+   * Utility method to get array of last 6 months map.
+   */
   getLastSixMonthsMap() {
     let today = new Date();
     let d ;
@@ -34,7 +40,10 @@ export class SearchPaymentsComponent implements OnInit {
     }
     this.monthsList  = this.monthsList.reverse();
   }
-
+  
+  /**
+   * Method to call an api in case of any filter property update
+   */
   onSearchHandler(){
     if(this.filterModel.frequency === 'Monthly' && this.filterModel.month ==='NA'){
         this.filterModel.month = this.monthsList[0].value;
