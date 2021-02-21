@@ -9,7 +9,7 @@ const ACCOUNT_BALNACE = 10000;
  * @param {*} year - selected year
  */
 const daysInMonth =  function (month, year) {
-   return new Date(year, month, 0).getDate();
+   return new Date(year, month+1, 0).getDate();
 }
 
 module.exports = (app) => {
@@ -51,22 +51,26 @@ module.exports = (app) => {
       let payments = [];
       //For handling if frequency selected to 'current'
       // for this case , we dont need to consider month filter option as it will NA in this case 
-      console.log("shshshhs");
       if(req.params.frequency.toLowerCase() === 'current'){
          payments = await Payment.find().limit(10).sort({paymentDate: -1});
          //in case of category selection filter applied.
-         console.log("Sssssss"+ payments);
          if(req.params.category && req.params.category !=="All"){
             payments = await Payment.find({ category: req.params.category}).limit(10).sort({paymentDate: -1});
          }
       }else if (req.params.frequency.toLowerCase()  === 'monthly'){
          //For handling if frequency selected to 'monthly'
          let now = new Date();
-         let daysInSelectedMonth = daysInMonth(req.params.month, now.getFullYear());
-         let start = new Date(2021, req.params.month, 1);
-         let end = new Date(2021,  req.params.month, daysInSelectedMonth);
+         let monthDiff = now.getMonth() - req.params.month;
+         if(monthDiff >= 0){
+            now.setMonth(now.getMonth() - monthDiff);
+         } else {
+            now.setMonth(now.getMonth() + monthDiff);
+         }
+         let daysInSelectedMonth = daysInMonth(+req.params.month, now.getFullYear());
+         let start = new Date(now.getFullYear(), req.params.month, 1);
+         end = new Date(now.getFullYear(),  req.params.month, daysInSelectedMonth);
          payments = await Payment.find({paymentDate: {$gte: start, $lt: end}}).sort({paymentDate: -1});
-         if(req.params.category){
+         if(req.params.category && req.params.category !=="All"){
             payments = await Payment.find({paymentDate: {$gte: start, $lt: end}}).find({ category: req.params.category}).sort({paymentDate: -1});
          }
       }
