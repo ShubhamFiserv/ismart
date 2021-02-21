@@ -51,10 +51,12 @@ module.exports = (app) => {
       let payments = [];
       //For handling if frequency selected to 'current'
       // for this case , we dont need to consider month filter option as it will NA in this case 
+      console.log("shshshhs");
       if(req.params.frequency.toLowerCase() === 'current'){
          payments = await Payment.find().limit(10).sort({paymentDate: -1});
          //in case of category selection filter applied.
-         if(req.params.category){
+         console.log("Sssssss"+ payments);
+         if(req.params.category && req.params.category !=="All"){
             payments = await Payment.find({ category: req.params.category}).limit(10).sort({paymentDate: -1});
          }
       }else if (req.params.frequency.toLowerCase()  === 'monthly'){
