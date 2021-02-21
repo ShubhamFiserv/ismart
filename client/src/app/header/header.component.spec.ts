@@ -22,4 +22,8 @@ describe('HeaderComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have a header', () => {
+    expect(fixture.nativeElement.querySelector('h1').textContent).toContain(component.header);
+  });
 });
